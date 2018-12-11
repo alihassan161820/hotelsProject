@@ -41,7 +41,7 @@ class HotelsController extends Controller
 
         if($sortBy){
             $unsortedHotels = $this->hotels->searchHotelsData($name, $priceRange, $city, $date);
-            $sortedHotels = $unsortedHotels->sortBy($sortBy);
+            $sortedHotels = collect($unsortedHotels)->sortBy($sortBy);
             return $sortedHotels->values();
         }else{
             return $this->hotels->searchHotelsData($name, $priceRange, $city, $date);

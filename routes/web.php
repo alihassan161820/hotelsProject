@@ -11,9 +11,9 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-// https://laravellast.dev/hotels/?name=Concorde%20Hotel&price=60-200&date=22-10-2020%2C22-11-2020&city=Manila&sortBy=name or price 
 Route::get('/hotels','HotelsController@index' );
