@@ -1,5 +1,6 @@
 ## Hotels Task
 
+##Advanced Search Module
 **Hotels application** is (REST API using laravel Fraamework) to allow search in this inventory  by any of the following :
 
 - Hotel Name

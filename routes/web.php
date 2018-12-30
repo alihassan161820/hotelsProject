@@ -16,4 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hotels','HotelsController@index' );
+
+// advanced search
+Route::get('/hotels','SearchController@search' );
+
+

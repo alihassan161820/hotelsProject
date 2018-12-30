@@ -28,7 +28,7 @@
                             <option value="price">Price</option>
                             <option value="name">Hotel Name</option>
                         </select>
-                        <input type="submit" class="form-control btn btn-primary" onclick="myFunction()" value="Search">
+                        <input type="submit" class="form-control btn btn-primary" onclick="getHotelsData()" value="Search">
                     </div>
                 </div>
             </br>
@@ -48,7 +48,10 @@
         </div>
     </div>
     <script type="text/javascript">
-        function myFunction() {
+
+        window.getHotelsData();
+
+        function getHotelsData() {
             $name = document.getElementById('name').value;
             $minPrice = document.getElementById('minPrice').value;
             $maxPrice = document.getElementById('maxPrice').value;
@@ -56,7 +59,6 @@
             $dateFrom = document.getElementById('dateFrom').value;
             $dateTo = document.getElementById('dateTo').value;
             $sortby = document.getElementById('sortby').value;
-            console.log($sortby);
             $price = '';
             $date = '';
             if ($minPrice && $maxPrice) {
@@ -70,18 +72,22 @@
             $.ajax({
                 type: 'GET',
                 url: "/hotels",
+                async: false ,
                 data: {
                     'name': $name,
                     'city': $city,
                     'price': $price,
                     'date': $date,
-                    'sortby':$sortby
+                    'sort_by':$sortby
                 },
                 success: function (data) {
+                    console.log(data);
                     result = "";
                     if (data === undefined || data.length == 0) {
-                        $('tbody').html('');
+                        $('tbody').html('There is No Hotels Found');
                     }
+                    if(typeof data === 'object' && data !== null)
+                        data = Object.values(data);
                     data.forEach(function (hotel) {
                         result += '<tr>' +
                             '<td>' + hotel.name + '</td>' +
@@ -99,15 +105,6 @@
             });
         }
     </script>
-
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
-    </script>
-
 </body>
 
 </html>
